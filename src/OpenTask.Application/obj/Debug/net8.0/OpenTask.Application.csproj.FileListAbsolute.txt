@@ -1,0 +1,15 @@
+/home/ubuntu/opentask/src/OpenTask.Application/obj/Debug/net8.0/OpenTask.Application.csproj.AssemblyReference.cache
+/home/ubuntu/opentask/src/OpenTask.Application/obj/Debug/net8.0/OpenTask.Application.GeneratedMSBuildEditorConfig.editorconfig
+/home/ubuntu/opentask/src/OpenTask.Application/obj/Debug/net8.0/OpenTask.Application.AssemblyInfoInputs.cache
+/home/ubuntu/opentask/src/OpenTask.Application/obj/Debug/net8.0/OpenTask.Application.AssemblyInfo.cs
+/home/ubuntu/opentask/src/OpenTask.Application/obj/Debug/net8.0/OpenTask.Application.csproj.CoreCompileInputs.cache
+/home/ubuntu/opentask/src/OpenTask.Application/bin/Debug/net8.0/OpenTask.Application.deps.json
+/home/ubuntu/opentask/src/OpenTask.Application/bin/Debug/net8.0/OpenTask.Application.dll
+/home/ubuntu/opentask/src/OpenTask.Application/bin/Debug/net8.0/OpenTask.Application.pdb
+/home/ubuntu/opentask/src/OpenTask.Application/bin/Debug/net8.0/OpenTask.Domain.dll
+/home/ubuntu/opentask/src/OpenTask.Application/bin/Debug/net8.0/OpenTask.Domain.pdb
+/home/ubuntu/opentask/src/OpenTask.Application/obj/Debug/net8.0/OpenTask.21BF2F1D.Up2Date
+/home/ubuntu/opentask/src/OpenTask.Application/obj/Debug/net8.0/OpenTask.Application.dll
+/home/ubuntu/opentask/src/OpenTask.Application/obj/Debug/net8.0/refint/OpenTask.Application.dll
+/home/ubuntu/opentask/src/OpenTask.Application/obj/Debug/net8.0/OpenTask.Application.pdb
+/home/ubuntu/opentask/src/OpenTask.Application/obj/Debug/net8.0/ref/OpenTask.Application.dll

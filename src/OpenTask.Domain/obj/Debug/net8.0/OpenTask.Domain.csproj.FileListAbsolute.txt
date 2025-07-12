@@ -1,0 +1,11 @@
+/home/ubuntu/opentask/src/OpenTask.Domain/bin/Debug/net8.0/OpenTask.Domain.deps.json
+/home/ubuntu/opentask/src/OpenTask.Domain/bin/Debug/net8.0/OpenTask.Domain.dll
+/home/ubuntu/opentask/src/OpenTask.Domain/bin/Debug/net8.0/OpenTask.Domain.pdb
+/home/ubuntu/opentask/src/OpenTask.Domain/obj/Debug/net8.0/OpenTask.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/ubuntu/opentask/src/OpenTask.Domain/obj/Debug/net8.0/OpenTask.Domain.AssemblyInfoInputs.cache
+/home/ubuntu/opentask/src/OpenTask.Domain/obj/Debug/net8.0/OpenTask.Domain.AssemblyInfo.cs
+/home/ubuntu/opentask/src/OpenTask.Domain/obj/Debug/net8.0/OpenTask.Domain.csproj.CoreCompileInputs.cache
+/home/ubuntu/opentask/src/OpenTask.Domain/obj/Debug/net8.0/OpenTask.Domain.dll
+/home/ubuntu/opentask/src/OpenTask.Domain/obj/Debug/net8.0/refint/OpenTask.Domain.dll
+/home/ubuntu/opentask/src/OpenTask.Domain/obj/Debug/net8.0/OpenTask.Domain.pdb
+/home/ubuntu/opentask/src/OpenTask.Domain/obj/Debug/net8.0/ref/OpenTask.Domain.dll
