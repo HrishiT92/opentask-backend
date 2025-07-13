@@ -39,6 +39,8 @@ public class CommentService : ICommentService
         _context.Comments.Add(comment);
         await _context.SaveChangesAsync();
         
+        await ProcessMentionsAsync(comment.Content, comment.IssueId);
+        
         return await GetCommentByIdAsync(comment.Id) ?? comment;
     }
 
@@ -57,5 +59,34 @@ public class CommentService : ICommentService
         _context.Comments.Remove(comment);
         await _context.SaveChangesAsync();
         return true;
+    }
+
+    private async Task ProcessMentionsAsync(string content, Guid issueId)
+    {
+        var mentionPattern = @"@(\w+)";
+        var matches = System.Text.RegularExpressions.Regex.Matches(content, mentionPattern);
+
+        foreach (System.Text.RegularExpressions.Match match in matches)
+        {
+            var username = match.Groups[1].Value;
+            var user = await _context.Users
+                .FirstOrDefaultAsync(u => u.Email.Contains(username) || u.FirstName.Contains(username));
+
+            if (user != null)
+            {
+                var notification = new Notification
+                {
+                    UserId = user.Id,
+                    Message = $"You were mentioned in a comment",
+                    Type = "Mention",
+                    RelatedEntityId = issueId,
+                    RelatedEntityType = "Issue"
+                };
+
+                _context.Notifications.Add(notification);
+            }
+        }
+
+        await _context.SaveChangesAsync();
     }
 }
