@@ -14,4 +14,5 @@ public interface ISprintService
     Task<Sprint?> GetActiveSprintAsync(Guid projectId);
     Task<int> GetSprintVelocityAsync(Guid sprintId);
     Task<IEnumerable<object>> GetBurndownDataAsync(Guid sprintId);
+    Task<object> CalculateVelocityAsync(Guid sprintId);
 }

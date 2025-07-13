@@ -16,4 +16,7 @@ public interface IIssueService
     Task<bool> MoveIssueToSprintAsync(Guid issueId, Guid? sprintId);
     Task<IEnumerable<Issue>> SearchIssuesAsync(string query, Guid projectId);
     Task<IEnumerable<Issue>> GetIssuesByFilterAsync(Guid projectId, IssueStatus? status, Guid? assigneeId, Priority? priority);
+    Task<IssueDependency> CreateDependencyAsync(Guid blockingIssueId, Guid blockedIssueId, string type);
+    Task<IEnumerable<IssueDependency>> GetDependenciesAsync(Guid issueId);
+    Task DeleteDependencyAsync(Guid dependencyId);
 }

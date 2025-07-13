@@ -20,6 +20,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<IssueLabel> IssueLabels => Set<IssueLabel>();
     public DbSet<ActivityLog> ActivityLogs => Set<ActivityLog>();
     public DbSet<Notification> Notifications => Set<Notification>();
+    public DbSet<IssueDependency> IssueDependencies => Set<IssueDependency>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -229,6 +230,23 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
                 .WithMany(c => c.Replies)
                 .HasForeignKey(e => e.ParentCommentId)
                 .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<IssueDependency>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            
+            entity.HasOne(d => d.BlockingIssue)
+                .WithMany(i => i.BlockingDependencies)
+                .HasForeignKey(d => d.BlockingIssueId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(d => d.BlockedIssue)
+                .WithMany(i => i.BlockedByDependencies)
+                .HasForeignKey(d => d.BlockedIssueId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasIndex(e => new { e.BlockingIssueId, e.BlockedIssueId }).IsUnique();
         });
     }
 }

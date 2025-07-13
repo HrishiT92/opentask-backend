@@ -145,4 +145,37 @@ public class IssueService : IIssueService
             .OrderByDescending(i => i.CreatedAt)
             .ToListAsync();
     }
+
+    public async Task<IssueDependency> CreateDependencyAsync(Guid blockingIssueId, Guid blockedIssueId, string type)
+    {
+        var dependency = new IssueDependency
+        {
+            BlockingIssueId = blockingIssueId,
+            BlockedIssueId = blockedIssueId,
+            Type = Enum.Parse<DependencyType>(type, true)
+        };
+
+        _context.IssueDependencies.Add(dependency);
+        await _context.SaveChangesAsync();
+        return dependency;
+    }
+
+    public async Task<IEnumerable<IssueDependency>> GetDependenciesAsync(Guid issueId)
+    {
+        return await _context.IssueDependencies
+            .Where(d => d.BlockingIssueId == issueId || d.BlockedIssueId == issueId)
+            .Include(d => d.BlockingIssue)
+            .Include(d => d.BlockedIssue)
+            .ToListAsync();
+    }
+
+    public async Task DeleteDependencyAsync(Guid dependencyId)
+    {
+        var dependency = await _context.IssueDependencies.FindAsync(dependencyId);
+        if (dependency != null)
+        {
+            _context.IssueDependencies.Remove(dependency);
+            await _context.SaveChangesAsync();
+        }
+    }
 }

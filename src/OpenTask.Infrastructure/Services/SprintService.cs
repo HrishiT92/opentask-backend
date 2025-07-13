@@ -129,4 +129,27 @@ public class SprintService : ISprintService
 
         return burndownData;
     }
+
+    public async Task<object> CalculateVelocityAsync(Guid sprintId)
+    {
+        var sprint = await _context.Sprints
+            .Include(s => s.Issues)
+            .FirstOrDefaultAsync(s => s.Id == sprintId);
+
+        if (sprint == null) return new { velocity = 0, completed = 0, planned = 0 };
+
+        var completedPoints = sprint.Issues
+            .Where(i => i.Status == IssueStatus.Done)
+            .Sum(i => i.StoryPoints);
+
+        var plannedPoints = sprint.Issues.Sum(i => i.StoryPoints);
+
+        return new
+        {
+            velocity = completedPoints,
+            completed = completedPoints,
+            planned = plannedPoints,
+            sprintName = sprint.Name
+        };
+    }
 }
