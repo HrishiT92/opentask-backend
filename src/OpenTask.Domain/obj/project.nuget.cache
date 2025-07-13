@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fowTnTAQ0RM=",
+  "dgSpecHash": "GOqQomMuaQk=",
   "success": true,
-  "projectFilePath": "/home/ubuntu/opentask/src/OpenTask.Domain/OpenTask.Domain.csproj",
+  "projectFilePath": "/home/ubuntu/opentask-split/backend/src/OpenTask.Domain/OpenTask.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

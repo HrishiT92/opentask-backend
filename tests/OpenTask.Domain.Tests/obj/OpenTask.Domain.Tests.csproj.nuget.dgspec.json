@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/ubuntu/opentask/tests/OpenTask.Domain.Tests/OpenTask.Domain.Tests.csproj": {}
+    "/home/ubuntu/opentask-split/backend/tests/OpenTask.Domain.Tests/OpenTask.Domain.Tests.csproj": {}
   },
   "projects": {
-    "/home/ubuntu/opentask/src/OpenTask.Domain/OpenTask.Domain.csproj": {
+    "/home/ubuntu/opentask-split/backend/src/OpenTask.Domain/OpenTask.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/ubuntu/opentask/src/OpenTask.Domain/OpenTask.Domain.csproj",
+        "projectUniqueName": "/home/ubuntu/opentask-split/backend/src/OpenTask.Domain/OpenTask.Domain.csproj",
         "projectName": "OpenTask.Domain",
-        "projectPath": "/home/ubuntu/opentask/src/OpenTask.Domain/OpenTask.Domain.csproj",
+        "projectPath": "/home/ubuntu/opentask-split/backend/src/OpenTask.Domain/OpenTask.Domain.csproj",
         "packagesPath": "/home/ubuntu/.nuget/packages/",
-        "outputPath": "/home/ubuntu/opentask/src/OpenTask.Domain/obj/",
+        "outputPath": "/home/ubuntu/opentask-split/backend/src/OpenTask.Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/ubuntu/.nuget/NuGet/NuGet.Config"
@@ -62,14 +62,14 @@
         }
       }
     },
-    "/home/ubuntu/opentask/tests/OpenTask.Domain.Tests/OpenTask.Domain.Tests.csproj": {
+    "/home/ubuntu/opentask-split/backend/tests/OpenTask.Domain.Tests/OpenTask.Domain.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/ubuntu/opentask/tests/OpenTask.Domain.Tests/OpenTask.Domain.Tests.csproj",
+        "projectUniqueName": "/home/ubuntu/opentask-split/backend/tests/OpenTask.Domain.Tests/OpenTask.Domain.Tests.csproj",
         "projectName": "OpenTask.Domain.Tests",
-        "projectPath": "/home/ubuntu/opentask/tests/OpenTask.Domain.Tests/OpenTask.Domain.Tests.csproj",
+        "projectPath": "/home/ubuntu/opentask-split/backend/tests/OpenTask.Domain.Tests/OpenTask.Domain.Tests.csproj",
         "packagesPath": "/home/ubuntu/.nuget/packages/",
-        "outputPath": "/home/ubuntu/opentask/tests/OpenTask.Domain.Tests/obj/",
+        "outputPath": "/home/ubuntu/opentask-split/backend/tests/OpenTask.Domain.Tests/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/ubuntu/.nuget/NuGet/NuGet.Config"
@@ -84,8 +84,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/home/ubuntu/opentask/src/OpenTask.Domain/OpenTask.Domain.csproj": {
-                "projectPath": "/home/ubuntu/opentask/src/OpenTask.Domain/OpenTask.Domain.csproj"
+              "/home/ubuntu/opentask-split/backend/src/OpenTask.Domain/OpenTask.Domain.csproj": {
+                "projectPath": "/home/ubuntu/opentask-split/backend/src/OpenTask.Domain/OpenTask.Domain.csproj"
               }
             }
           }

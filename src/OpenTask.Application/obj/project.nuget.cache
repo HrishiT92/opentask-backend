@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Hw5LeII7GdQ=",
+  "dgSpecHash": "ZYwsVa60R6M=",
   "success": true,
-  "projectFilePath": "/home/ubuntu/opentask/src/OpenTask.Application/OpenTask.Application.csproj",
+  "projectFilePath": "/home/ubuntu/opentask-split/backend/src/OpenTask.Application/OpenTask.Application.csproj",
   "expectedPackageFiles": [
     "/home/ubuntu/.nuget/packages/microsoft.entityframeworkcore/9.0.7/microsoft.entityframeworkcore.9.0.7.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/microsoft.entityframeworkcore.abstractions/9.0.7/microsoft.entityframeworkcore.abstractions.9.0.7.nupkg.sha512",

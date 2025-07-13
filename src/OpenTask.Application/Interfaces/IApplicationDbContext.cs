@@ -14,6 +14,8 @@ public interface IApplicationDbContext
     DbSet<IssueAttachment> IssueAttachments { get; }
     DbSet<IssueLabel> IssueLabels { get; }
     DbSet<ActivityLog> ActivityLogs { get; }
+    DbSet<Notification> Notifications { get; }
+    DbSet<IssueDependency> IssueDependencies { get; }
     
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

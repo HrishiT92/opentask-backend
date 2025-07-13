@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using OpenTask.Infrastructure.Data;
 using OpenTask.Application.Interfaces;
+using OpenTask.Application.Services;
 using Serilog;
 using System.Text;
 using OpenTelemetry.Instrumentation.AspNetCore;
@@ -20,13 +21,27 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+    });
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IApplicationDbContext>(provider => 
     provider.GetRequiredService<ApplicationDbContext>());
+
+builder.Services.AddScoped<IAuthService, OpenTask.Infrastructure.Services.AuthService>();
+builder.Services.AddScoped<IProjectService, OpenTask.Infrastructure.Services.ProjectService>();
+builder.Services.AddScoped<IIssueService, OpenTask.Infrastructure.Services.IssueService>();
+builder.Services.AddScoped<ISprintService, OpenTask.Infrastructure.Services.SprintService>();
+builder.Services.AddScoped<ICommentService, OpenTask.Infrastructure.Services.CommentService>();
+builder.Services.AddScoped<IFileStorageService, OpenTask.Infrastructure.Services.FileStorageService>();
+builder.Services.AddScoped<INotificationService, OpenTask.Infrastructure.Services.NotificationService>();
+builder.Services.AddScoped<IEmailService, OpenTask.Infrastructure.Services.EmailService>();
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = jwtSettings["SecretKey"] ?? "YourSuperSecretKeyThatIsAtLeast32CharactersLong!";
@@ -102,6 +117,8 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddOpenTelemetry();
 
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
@@ -123,6 +140,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<OpenTask.Infrastructure.Services.NotificationHub>("/notificationHub");
 
 app.MapGet("/health", () => Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow }))
     .WithName("HealthCheck")

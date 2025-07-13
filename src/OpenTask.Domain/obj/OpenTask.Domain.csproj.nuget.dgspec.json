@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/ubuntu/opentask/src/OpenTask.Domain/OpenTask.Domain.csproj": {}
+    "/home/ubuntu/opentask-split/backend/src/OpenTask.Domain/OpenTask.Domain.csproj": {}
   },
   "projects": {
-    "/home/ubuntu/opentask/src/OpenTask.Domain/OpenTask.Domain.csproj": {
+    "/home/ubuntu/opentask-split/backend/src/OpenTask.Domain/OpenTask.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/ubuntu/opentask/src/OpenTask.Domain/OpenTask.Domain.csproj",
+        "projectUniqueName": "/home/ubuntu/opentask-split/backend/src/OpenTask.Domain/OpenTask.Domain.csproj",
         "projectName": "OpenTask.Domain",
-        "projectPath": "/home/ubuntu/opentask/src/OpenTask.Domain/OpenTask.Domain.csproj",
+        "projectPath": "/home/ubuntu/opentask-split/backend/src/OpenTask.Domain/OpenTask.Domain.csproj",
         "packagesPath": "/home/ubuntu/.nuget/packages/",
-        "outputPath": "/home/ubuntu/opentask/src/OpenTask.Domain/obj/",
+        "outputPath": "/home/ubuntu/opentask-split/backend/src/OpenTask.Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/ubuntu/.nuget/NuGet/NuGet.Config"
