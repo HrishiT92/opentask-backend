@@ -37,9 +37,9 @@ public class User : BaseEntity
     
     public DateTime? RefreshTokenExpiryTime { get; set; }
     
-    public ICollection<ProjectMember> ProjectMemberships { get; set; } = new List<ProjectMember>();
-    public ICollection<Issue> AssignedIssues { get; set; } = new List<Issue>();
-    public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+    public virtual ICollection<ProjectMember> ProjectMemberships { get; set; } = new List<ProjectMember>();
+    public virtual ICollection<Issue> AssignedIssues { get; set; } = new List<Issue>();
+    public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 }
 
 public enum UserRole
@@ -66,9 +66,12 @@ public class Project : BaseEntity
     
     public bool IsActive { get; set; } = true;
     
-    public ICollection<ProjectMember> Members { get; set; } = new List<ProjectMember>();
-    public ICollection<Issue> Issues { get; set; } = new List<Issue>();
-    public ICollection<Sprint> Sprints { get; set; } = new List<Sprint>();
+    [System.Text.Json.Serialization.JsonIgnore]
+    public virtual ICollection<ProjectMember> Members { get; set; } = new List<ProjectMember>();
+    [System.Text.Json.Serialization.JsonIgnore]
+    public virtual ICollection<Issue> Issues { get; set; } = new List<Issue>();
+    [System.Text.Json.Serialization.JsonIgnore]
+    public virtual ICollection<Sprint> Sprints { get; set; } = new List<Sprint>();
 }
 
 public class ProjectMember : BaseEntity
@@ -77,6 +80,7 @@ public class ProjectMember : BaseEntity
     public User User { get; set; } = null!;
     
     public Guid ProjectId { get; set; }
+    [System.Text.Json.Serialization.JsonIgnore]
     public Project Project { get; set; } = null!;
     
     public ProjectRole Role { get; set; } = ProjectRole.Developer;
@@ -106,6 +110,7 @@ public class Issue : BaseEntity
     public IssueStatus Status { get; set; } = IssueStatus.ToDo;
     
     public Guid ProjectId { get; set; }
+    [System.Text.Json.Serialization.JsonIgnore]
     public Project Project { get; set; } = null!;
     
     public Guid? AssigneeId { get; set; }
@@ -121,10 +126,91 @@ public class Issue : BaseEntity
     
     public DateTime? DueDate { get; set; }
     
-    public ICollection<Issue> SubIssues { get; set; } = new List<Issue>();
-    public ICollection<Comment> Comments { get; set; } = new List<Comment>();
-    public ICollection<IssueAttachment> Attachments { get; set; } = new List<IssueAttachment>();
-    public ICollection<IssueLabel> Labels { get; set; } = new List<IssueLabel>();
+    public virtual ICollection<IssueAttachment> Attachments { get; set; } = new List<IssueAttachment>();
+    public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
+    public virtual ICollection<IssueLabel> Labels { get; set; } = new List<IssueLabel>();
+    public virtual ICollection<Issue> SubIssues { get; set; } = new List<Issue>();
+    public virtual ICollection<IssueDependency> BlockedByDependencies { get; set; } = new List<IssueDependency>();
+    public virtual ICollection<IssueDependency> BlockingDependencies { get; set; } = new List<IssueDependency>();
+}
+
+public class IssueAttachment : BaseEntity
+{
+    [Required]
+    [MaxLength(255)]
+    public string FileName { get; set; } = string.Empty;
+    
+    [Required]
+    [MaxLength(500)]
+    public string FilePath { get; set; } = string.Empty;
+    
+    [Required]
+    [MaxLength(100)]
+    public string ContentType { get; set; } = string.Empty;
+    
+    public long FileSize { get; set; }
+    
+    public Guid IssueId { get; set; }
+    public virtual Issue Issue { get; set; } = null!;
+    
+    public Guid UploadedById { get; set; }
+    public virtual User UploadedBy { get; set; } = null!;
+}
+
+public class IssueLabel : BaseEntity
+{
+    [Required]
+    [MaxLength(50)]
+    public string Name { get; set; } = string.Empty;
+    
+    [Required]
+    [MaxLength(7)]
+    public string Color { get; set; } = "#000000";
+    
+    public Guid ProjectId { get; set; }
+    [System.Text.Json.Serialization.JsonIgnore]
+    public virtual Project Project { get; set; } = null!;
+    
+    [System.Text.Json.Serialization.JsonIgnore]
+    public virtual ICollection<Issue> Issues { get; set; } = new List<Issue>();
+}
+
+public class ActivityLog : BaseEntity
+{
+    [Required]
+    [MaxLength(100)]
+    public string EntityType { get; set; } = string.Empty;
+    
+    public Guid EntityId { get; set; }
+    
+    [Required]
+    [MaxLength(50)]
+    public string Action { get; set; } = string.Empty;
+    
+    public string? Details { get; set; }
+    
+    public Guid UserId { get; set; }
+    public virtual User User { get; set; } = null!;
+    
+    public Guid ProjectId { get; set; }
+    public virtual Project Project { get; set; } = null!;
+}
+
+public class Comment : BaseEntity
+{
+    [Required]
+    public string Content { get; set; } = string.Empty;
+    
+    public Guid IssueId { get; set; }
+    public virtual Issue Issue { get; set; } = null!;
+    
+    public Guid AuthorId { get; set; }
+    public virtual User Author { get; set; } = null!;
+    
+    public Guid? ParentCommentId { get; set; }
+    public virtual Comment? ParentComment { get; set; }
+    
+    public virtual ICollection<Comment> Replies { get; set; } = new List<Comment>();
 }
 
 public enum IssueType
@@ -142,6 +228,24 @@ public enum Priority
     Medium = 3,
     High = 4,
     Highest = 5
+}
+
+public class IssueDependency : BaseEntity
+{
+    public Guid BlockingIssueId { get; set; }
+    public virtual Issue BlockingIssue { get; set; } = null!;
+    
+    public Guid BlockedIssueId { get; set; }
+    public virtual Issue BlockedIssue { get; set; } = null!;
+    
+    public DependencyType Type { get; set; } = DependencyType.Blocks;
+}
+
+public enum DependencyType
+{
+    Blocks = 1,
+    Relates = 2,
+    Duplicates = 3
 }
 
 public enum IssueStatus
