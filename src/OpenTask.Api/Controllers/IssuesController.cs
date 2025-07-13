@@ -188,6 +188,57 @@ public class IssuesController : ControllerBase
         var issues = await _issueService.GetIssuesByFilterAsync(projectId, status, assigneeId, priority);
         return Ok(issues);
     }
+
+    [HttpPost("{id}/dependencies")]
+    public async Task<IActionResult> CreateDependency(Guid id, [FromBody] CreateDependencyRequest request)
+    {
+        var issue = await _issueService.GetIssueByIdAsync(id);
+        if (issue == null)
+            return NotFound();
+
+        var userId = GetCurrentUserId();
+        if (!await _projectService.HasAccessAsync(issue.ProjectId, userId))
+            return Forbid();
+
+        var dependency = await _issueService.CreateDependencyAsync(id, request.BlockedIssueId, request.Type);
+        return Ok(dependency);
+    }
+
+    [HttpGet("{id}/dependencies")]
+    public async Task<IActionResult> GetDependencies(Guid id)
+    {
+        var issue = await _issueService.GetIssueByIdAsync(id);
+        if (issue == null)
+            return NotFound();
+
+        var userId = GetCurrentUserId();
+        if (!await _projectService.HasAccessAsync(issue.ProjectId, userId))
+            return Forbid();
+
+        var dependencies = await _issueService.GetDependenciesAsync(id);
+        return Ok(dependencies);
+    }
+
+    [HttpDelete("{id}/dependencies/{dependencyId}")]
+    public async Task<IActionResult> DeleteDependency(Guid id, Guid dependencyId)
+    {
+        var issue = await _issueService.GetIssueByIdAsync(id);
+        if (issue == null)
+            return NotFound();
+
+        var userId = GetCurrentUserId();
+        if (!await _projectService.HasAccessAsync(issue.ProjectId, userId))
+            return Forbid();
+
+        await _issueService.DeleteDependencyAsync(dependencyId);
+        return NoContent();
+    }
+}
+
+public class CreateDependencyRequest
+{
+    public Guid BlockedIssueId { get; set; }
+    public string Type { get; set; } = "Blocks";
 }
 
 public class CreateIssueRequest

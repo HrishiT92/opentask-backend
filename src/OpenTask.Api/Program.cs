@@ -36,6 +36,7 @@ builder.Services.AddScoped<ISprintService, OpenTask.Infrastructure.Services.Spri
 builder.Services.AddScoped<ICommentService, OpenTask.Infrastructure.Services.CommentService>();
 builder.Services.AddScoped<IFileStorageService, OpenTask.Infrastructure.Services.FileStorageService>();
 builder.Services.AddScoped<INotificationService, OpenTask.Infrastructure.Services.NotificationService>();
+builder.Services.AddScoped<IEmailService, OpenTask.Infrastructure.Services.EmailService>();
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = jwtSettings["SecretKey"] ?? "YourSuperSecretKeyThatIsAtLeast32CharactersLong!";
