@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using OpenTask.Infrastructure.Data;
 using OpenTask.Application.Interfaces;
+using OpenTask.Application.Services;
 using Serilog;
 using System.Text;
 using OpenTelemetry.Instrumentation.AspNetCore;
@@ -27,6 +28,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<IApplicationDbContext>(provider => 
     provider.GetRequiredService<ApplicationDbContext>());
+
+builder.Services.AddScoped<IAuthService, OpenTask.Infrastructure.Services.AuthService>();
+builder.Services.AddScoped<IProjectService, OpenTask.Infrastructure.Services.ProjectService>();
+builder.Services.AddScoped<IIssueService, OpenTask.Infrastructure.Services.IssueService>();
+builder.Services.AddScoped<ISprintService, OpenTask.Infrastructure.Services.SprintService>();
+builder.Services.AddScoped<ICommentService, OpenTask.Infrastructure.Services.CommentService>();
+builder.Services.AddScoped<IFileStorageService, OpenTask.Infrastructure.Services.FileStorageService>();
+builder.Services.AddScoped<INotificationService, OpenTask.Infrastructure.Services.NotificationService>();
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = jwtSettings["SecretKey"] ?? "YourSuperSecretKeyThatIsAtLeast32CharactersLong!";
@@ -102,6 +111,8 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddOpenTelemetry();
 
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
@@ -123,6 +134,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<OpenTask.Infrastructure.Services.NotificationHub>("/notificationHub");
 
 app.MapGet("/health", () => Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow }))
     .WithName("HealthCheck")
